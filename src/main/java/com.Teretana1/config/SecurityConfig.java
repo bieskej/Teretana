@@ -1,6 +1,6 @@
-package com.teretana1.config;
+package com.Teretana1.config;
 
-import com.teretana1.services.KorisnikDetailsService;
+import com.Teretana1.services.UserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,42 +14,43 @@ import javax.sql.DataSource;
 
 @Configuration
 public class SecurityConfig {
+
     @Autowired
     DataSource dataSource;
 
     @Bean
-    public KorisnikDetailsService korisnikDetailsService(){
-        return new KorisnikDetailsService();
+    public UserDetailsService userDetailsService (){
+        return new UserDetailsService();
     }
 
     @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
+    public BCryptPasswordEncoder passwordEncoder (){
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public DaoAuthenticationProvider authenticationProvider(){
-        DaoAuthenticationProvider daoAuthenticationProvider=new DaoAuthenticationProvider();
-
+    public DaoAuthenticationProvider authenticationProvider (){
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setPasswordEncoder(this.passwordEncoder());
-
-        daoAuthenticationProvider.setUserDetailsService(this.korisnikDetailsService());
+        daoAuthenticationProvider.setUserDetailsService(this.userDetailsService());
         return daoAuthenticationProvider;
     }
 
     @Bean
     public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
-        return new MyAuthenticationSuccessHandler();
+        return (AuthenticationSuccessHandler) new MyAuthenticationSuccessHandler();
     }
+
+
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain filterChain (HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests()
-                .requestMatchers("/auth/register/**","/auth/register", "/WebLogo.png", "/auth/home", "/enduro1.jpg")
+                .requestMatchers("/auth/register/**","/auth/register")
                 .permitAll()
                 .requestMatchers("/users/**").hasAuthority("ADMIN")
-                .requestMatchers("/supervisor/**").hasAuthority("SUPERVISOR")
-                .requestMatchers("/driver/**").hasAuthority("DRIVER")
+                .requestMatchers("/teacher/**").hasAuthority("TEACHER")
+                .requestMatchers("/student/**").hasAnyAuthority("STUDENT")
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -66,8 +67,10 @@ public class SecurityConfig {
         http.authenticationProvider(authenticationProvider());
         http.headers().frameOptions().sameOrigin();
 
-        http.exceptionHandling().authenticationEntryPoint((request, response, authException) ->
-                response.sendRedirect("/auth/home"));
         return http.build();
+
+    }
+
+    private class MyAuthenticationSuccessHandler {
     }
 }

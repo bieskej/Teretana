@@ -1,9 +1,9 @@
-package config;
-
+package com.Teretana1.config;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
@@ -15,14 +15,13 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
 
         // Logika preusmjeravanja na osnovu uloge
         if (authorities.stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
-            response.sendRedirect("/templates/users");
-        } else if (authorities.stream().anyMatch(a -> a.getAuthority().equals("TRENER"))) {
-            response.sendRedirect("/trener");
-        } else if (authorities.stream().anyMatch(a -> a.getAuthority().equals("KLIJENT"))) {
-            response.sendRedirect("/klijent");
+            response.sendRedirect("/users");
+        } else if (authorities.stream().anyMatch(a -> a.getAuthority().equals("TEACHER"))) {
+            response.sendRedirect("/teacher");
+        } else if (authorities.stream().anyMatch(a -> a.getAuthority().equals("STUDENT"))) {
+            response.sendRedirect("/student");
         } else {
             response.sendRedirect("/login");
         }
     }
 }
-
