@@ -1,6 +1,6 @@
 package com.Teretana1.services;
 
-import com.Teretana1.services.UserDetailsService;
+import com.Teretana1.models.User;
 import com.Teretana1.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
