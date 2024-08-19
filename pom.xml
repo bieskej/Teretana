@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>fgr.projekt</groupId>
-    <artifactId>teretana</artifactId>
+    <artifactId>Teretana1</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>teretana</name>
     <description>teretana</description>

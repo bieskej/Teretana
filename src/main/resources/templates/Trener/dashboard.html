@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Trenerova Stranica</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+    <h1>Dobrodošli!</h1>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit" class="btn btn-danger">Odjavi se</button>
+    </form>
+    <div class="card mt-3">
+        <div class="card-body">
+            <h5 class="card-title">Upravljanje Treninzima</h5>
+            <p class="card-text">Ovdje možete dodati, urediti ili izbrisati predmete.</p>
+            <a href="#" class="btn btn-primary">Uredi Predmete</a>
+        </div>
+    </div>
+    <div class="card mt-3">
+        <div class="card-body">
+            <h5 class="card-title">Ocjene i Prisustvo</h5>
+            <p class="card-text">Pregled rada i evidencija prisustva na treninzima.</p>
+            <a href="#" class="btn btn-primary">Upravljanje Ocjena</a>
+        </div>
+    </div>
+    <!-- Ostale funkcionalnosti -->
+</div>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
