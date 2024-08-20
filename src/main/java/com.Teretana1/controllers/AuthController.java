@@ -24,7 +24,7 @@ public class AuthController {
     public String add (Model model){
         User user = new User();
         model.addAttribute("user", user);
-        return "users/register";
+        return "Users/register";
     }
 
     @PostMapping("/auth/register")
@@ -32,7 +32,7 @@ public class AuthController {
         boolean errors = result.hasErrors();
         if (errors){
             model.addAttribute("user", user);
-            return "users/register";
+            return "Users/register";
         } else {
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             String passwordEncoded = encoder.encode(user.getLozinka());
@@ -46,6 +46,6 @@ public class AuthController {
     @GetMapping("/auth/login")
     public String login (Model model){
         model.addAttribute("user", new User());
-        return "users/login";
+        return "Users/index";
     }
 }

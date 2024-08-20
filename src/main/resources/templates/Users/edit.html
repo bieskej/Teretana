@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Dodaj Novog Korisnika</title>
+    <title>Uredi Korisnika</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
 <div class="container mt-5">
-    <h2>Dodaj Novog Korisnika</h2>
-    <form th:action="@{/templates/users/add}" th:object="${user}" method="post">
+    <h2>Uredi Korisnika</h2>
+    <form th:action="@{/users/edit/{userId}(userId=${user.id})}" th:object="${user}" method="post">
         <div class="form-group">
             <label for="ime">Ime:</label>
             <input type="text" th:field="*{ime}" id="ime" class="form-control" required th:errorclass="is-invalid"/>

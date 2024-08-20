@@ -28,7 +28,7 @@ public class UserController {
     public String listUsers (Model model){
         List<User> users = userRepository.findAll();
         model.addAttribute("users", users);
-        return "users/index";
+        return "Users/index";
     }
 
     // U klasi UserController
@@ -37,7 +37,7 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public String showAddUserForm(Model model) {
         model.addAttribute("user", new User());
-        return "users/add";
+        return "Users/add";
     }
 
     @PostMapping("/users/add")
@@ -45,7 +45,7 @@ public class UserController {
     public String addUser(@Valid User user, BindingResult result, Model model) {
         if (result.hasErrors()){
             model.addAttribute("user", user);
-            return "users/add";
+            return "Users/add";
         } else {
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             String passwordEncoded = encoder.encode(user.getLozinka());
@@ -71,7 +71,7 @@ public class UserController {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("Neispravan ID korisnika: " + userId));
         model.addAttribute("user", user);
-        return "users/edit";
+        return "Users/edit";
     }
 
     @PostMapping("/users/edit/{userId}")
