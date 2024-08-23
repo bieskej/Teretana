@@ -16,6 +16,10 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         var authorities = authentication.getAuthorities();
 
+        for (var authority : authorities) {
+            System.out.println("this is  " + authority.getAuthority());
+        }
+
         if (authorities.stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
             response.sendRedirect("/users");
         } else if (authorities.stream().anyMatch(a -> a.getAuthority().equals("TRENER"))) {

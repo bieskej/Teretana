@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class KorisnikController {
 
     @GetMapping
-    public String studentDashboard(Model model) {
+    public String korisnikDashboard(Model model) {
         // Dodajte potrebne atribute u model
         return "Korisnik/dashboard";
     }

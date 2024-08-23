@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 public class UserDetails implements org.springframework.security.core.userdetails.UserDetails {
-    private User user;
+    public User user;
 
     public UserDetails(User user) {
         this.user = user;

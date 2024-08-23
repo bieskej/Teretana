@@ -7,7 +7,7 @@
 <body>
 <div class="container mt-5">
     <h2>Lista Korisnika</h2>
-    <a href="/templates/users/add" class="btn btn-success">Dodaj Novog Korisnika</a>
+    <a href="/users/add" class="btn btn-success">Dodaj Novog Korisnika</a>
 
     <form th:action="@{/logout}" method="post">
         <button type="submit" class="btn btn-danger">Odjavi se</button>
@@ -35,10 +35,10 @@
             </td>
             <td>
                 <div>
-                    <form th:action="@{/templates/users/delete/{userId}(userId=${user.id})}" method="post" class="d-inline">
+                    <form th:action="@{/users/delete/{userId}(userId=${user.id})}" method="post" class="d-inline">
                         <button type="submit" class="btn btn-danger">Obriši</button>
                     </form>
-                    <a th:href="@{/templates/users/edit/{userId}(userId=${user.id})}" class="btn btn-primary d-inline-block">Uredi</a>
+                    <a th:href="@{/users/edit/{userId}(userId=${user.id})}" class="btn btn-primary d-inline-block">Uredi</a>
                 </div>
             </td>
         </tr>

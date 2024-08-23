@@ -1,22 +1,104 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml" lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prijava na sustav</title>
     <!-- Include Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <!-- Include Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-body {
+            padding: 30px;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            color: #495057;
+        }
+
+        .form-control {
+            border-radius: 30px;
+            padding-left: 45px;
+            background-color: #e9ecef;
+            border: 1px solid #ced4da;
+        }
+
+        .input-group-text {
+            border-radius: 30px 0 0 30px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+        }
+
+        .btn-primary {
+            border-radius: 30px;
+            background-color: #007bff;
+            border: none;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .alert-danger {
+            border-radius: 30px;
+        }
+
+        p.mt-3 {
+            text-align: center;
+            color: #6c757d;
+        }
+
+        p.mt-3 a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        p.mt-3 a:hover {
+            text-decoration: underline;
+        }
+
+        .input-group-prepend span {
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
-    <div class="row justify-content-center mt-5">
+    <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
                     <h3 class="card-title text-center">Prijava na sustav</h3>
                     <form method="post" action="/auth/login">
                         <!-- CSRF Token -->
-                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
 
                         <div class="form-group">
                             <label for="email">Unesite Vašu email adresu</label>
@@ -24,7 +106,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-envelope"></i></span>
                                 </div>
-                                <input required type="email" class="form-control" id="email" name="email">
+                                <input required type="email" class="form-control" id="email" name="email" placeholder="Email adresa">
                             </div>
                         </div>
 
@@ -34,7 +116,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-lock"></i></span>
                                 </div>
-                                <input required type="password" class="form-control" id="password" name="password">
+                                <input required type="password" class="form-control" id="password" name="password" placeholder="Lozinka">
                             </div>
                         </div>
 
@@ -62,4 +144,4 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
-</html>>
+</html>

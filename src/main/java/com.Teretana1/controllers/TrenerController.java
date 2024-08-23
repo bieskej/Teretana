@@ -17,5 +17,5 @@ public class TrenerController {
         return "Trener/dashboard";
     }
 
-    // Ostale metode specifične za nastavnike
+
 }
