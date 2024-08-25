@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -43,25 +44,23 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests()
-                .requestMatchers("/auth/register/**", "/auth/register").permitAll()
-                .requestMatchers("/users/**").hasAuthority("ADMIN")
-                .requestMatchers("/trener/**").hasAuthority("TRENER")
-                .requestMatchers("/korisnik/**").hasAnyAuthority("KORISNIK")
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .successHandler(myAuthenticationSuccessHandler)
-                .loginPage("/auth/login")
-                .permitAll()
-                .usernameParameter("email")
-                .and()
-                .logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/").permitAll();
+                .authorizeHttpRequests(auth-> auth.requestMatchers("/auth/register/**", "/auth/register").permitAll()
+                        .requestMatchers("/users/**").hasAuthority("ADMIN")
+                        .requestMatchers("/trener/**").hasAuthority("TRENER")
+                        .requestMatchers("/korisnik/**").hasAnyAuthority("KORISNIK")
+                        .anyRequest().authenticated())
+                .formLogin(formLogin -> formLogin.loginPage("/auth/login")
+                        .permitAll()
+                        .usernameParameter("email")
+                        .successHandler(myAuthenticationSuccessHandler))
+                .logout(logout -> logout.logoutUrl("/logout")
+                        .logoutSuccessUrl("/")
+                        .permitAll());
 
         http.authenticationProvider(authenticationProvider());
-        http.headers().frameOptions().sameOrigin();  // If using H2 console or similar
+        http.headers(headers -> headers
+                .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin
+                ));
 
         return http.build();
     }
