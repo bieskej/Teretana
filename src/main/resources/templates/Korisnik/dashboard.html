@@ -2,31 +2,36 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Korisinikova Stranica</title>
+    <title>Korisnik Dashboard</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 <div class="container mt-4">
-    <h1>Dobrodošli!</h1>
-    <form th:action="@{/logout}" method="post">
-        <button type="submit" class="btn btn-danger">Odjavi se</button>
-    </form>
+    <h1>Dobrodošli, <span th:text="${user.ime}"></span>!</h1>
+
+    <!-- Gym Information -->
     <div class="card mt-3">
         <div class="card-body">
-            <h5 class="card-title">Moji Programi</h5>
-            <p class="card-text">Pregledajte programe na kojima ste trenutno upisani.</p>
-            <a href="#" class="btn btn-primary">Pregled Predmeta</a>
+            <h5 class="card-title">Moj Fitness Centar</h5>
+            <p class="card-text">Informacije o fitness centru kojem pripadate.</p>
+            <p><strong>Ime:</strong> <span th:text="${gym.name}">Naziv Fitness Centra</span></p>
+            <p><strong>Adresa:</strong> <span th:text="${gym.address}">Adresa Fitness Centra</span></p>
         </div>
     </div>
+
+    <!-- Workout Plans -->
     <div class="card mt-3">
         <div class="card-body">
-            <h5 class="card-title">Moje Ocjene</h5>
-            <p class="card-text">Provjerite svoje ocjene i komentare trenera.</p>
-            <a href="#" class="btn btn-primary">Pregled Ocjena</a>
+            <h5 class="card-title">Moji Programi Vježbanja</h5>
+            <p class="card-text">Pregledajte svoje programe vježbanja.</p>
+            <div th:each="workoutPlan : ${workoutPlans}">
+                <p><strong th:text="${workoutPlan.name}">Workout Plan Name</strong></p>
+                <!-- Add more details as needed -->
+            </div>
         </div>
     </div>
-    <!-- Ostale funkcionalnosti -->
 </div>
+
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

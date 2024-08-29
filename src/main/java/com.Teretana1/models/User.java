@@ -9,7 +9,7 @@ import java.util.Set;
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Size(min=5, max=20, message = "Polje ime mora biti izmđu 5 i 20 znakova.")
@@ -34,6 +34,19 @@ public class User {
     @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     Set<Role> roles = new HashSet<>();
+
+    // Mapping to Gym
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "gym_id")
+    private Gym gym;
+
+    // Mapping to WorkoutPlan
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<WorkoutPlan> workoutPlans = new HashSet<>();
+
+    // Mapping to Membership
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Membership> memberships = new HashSet<>();
 
     public User() {}
 
@@ -104,6 +117,30 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Gym getGym() {
+        return gym;
+    }
+
+    public void setGym(Gym gym) {
+        this.gym = gym;
+    }
+
+    public Set<WorkoutPlan> getWorkoutPlans() {
+        return workoutPlans;
+    }
+
+    public void setWorkoutPlans(Set<WorkoutPlan> workoutPlans) {
+        this.workoutPlans = workoutPlans;
+    }
+
+    public Set<Membership> getMemberships() {
+        return memberships;
+    }
+
+    public void setMemberships(Set<Membership> memberships) {
+        this.memberships = memberships;
     }
 
     @AssertTrue(message = "Lozinke se moraju podudarati")

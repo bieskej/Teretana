@@ -9,7 +9,7 @@ import java.util.Set;
 public class WorkoutPlan {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank(message = "Plan name is required")

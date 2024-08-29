@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotNull;
 public class Exercise {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank(message = "Exercise name is required")
