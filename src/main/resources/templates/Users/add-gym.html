@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Dodaj Novi Gym</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Dodaj Novi Gym</h2>
+
+    <form th:action="@{/gyms/add}" method="post">
+        <div class="form-group">
+            <label for="name">Naziv Gyma</label>
+            <input type="text" id="name" name="name" class="form-control" placeholder="Unesite naziv gyma" required>
+        </div>
+
+        <div class="form-group">
+            <label for="address">Adresa Gyma</label>
+            <input type="text" id="address" name="address" class="form-control" placeholder="Unesite adresu gyma" required>
+        </div>
+
+        <button type="submit" class="btn btn-success">Dodaj Gym</button>
+        <a href="/users" class="btn btn-secondary">Povratak</a>
+    </form>
+</div>
+</body>
+</html>

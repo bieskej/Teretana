@@ -27,7 +27,7 @@ public class User {
     @NotBlank(message = "Molimo unesite lozinku")
     String lozinka;
 
-    @NotBlank(message = "Molimo ponovite lozinku")
+
     @Transient
     String potvrdaLozinke;
 
@@ -145,10 +145,9 @@ public class User {
 
     @AssertTrue(message = "Lozinke se moraju podudarati")
     public boolean isPasswordsEqual(){
-        try {
-            return this.lozinka.equals(this.potvrdaLozinke);
-        } catch (Exception e){
-            return false;
+        if (this.potvrdaLozinke == null) {
+            return true; // Skip the validation if potvrdaLozinke is not provided
         }
+        return this.lozinka.equals(this.potvrdaLozinke);
     }
 }

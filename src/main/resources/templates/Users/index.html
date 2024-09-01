@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <title>Lista Korisnika</title>
+    <title>Upravljanje Korisnicima i Gymovima</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
 <div class="container mt-5">
     <h2>Lista Korisnika</h2>
-    <a href="/users/add" class="btn btn-success">Dodaj Novog Korisnika</a>
+    <a href="/users/add" class="btn btn-success mb-3">Dodaj Novog Korisnika</a>
 
-    <form th:action="@{/logout}" method="post">
+    <form th:action="@{/logout}" method="post" class="mb-3">
         <button type="submit" class="btn btn-danger">Odjavi se</button>
     </form>
 
@@ -19,7 +19,6 @@
             <th>Ime</th>
             <th>Prezime</th>
             <th>Email</th>
-            <!-- Dodajte dodatne stupce ako je potrebno -->
             <th>Uloge</th>
             <th>Akcije</th>
         </tr>
@@ -29,7 +28,6 @@
             <td th:text="${user.ime}">Ime</td>
             <td th:text="${user.prezime}">Prezime</td>
             <td th:text="${user.email}">Email</td>
-            <!-- Dodajte dodatne ćelije ako je potrebno -->
             <td>
                 <span th:each="role : ${user.roles}" class="badge badge-primary mr-1" th:text="${role}"></span>
             </td>
@@ -39,6 +37,32 @@
                         <button type="submit" class="btn btn-danger">Obriši</button>
                     </form>
                     <a th:href="@{/users/edit/{userId}(userId=${user.id})}" class="btn btn-primary d-inline-block">Uredi</a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Section to List Gyms and Connect Users/Coaches -->
+    <h2 class="mt-5">Lista Gymova</h2>
+    <a href="/gyms/add" class="btn btn-success mb-3">Dodaj Novi Gym</a>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Naziv</th>
+            <th>Adresa</th>
+            <th>Akcije</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="gym : ${gyms}">
+            <td th:text="${gym.name}">Naziv Gyma</td>
+            <td th:text="${gym.address}">Adresa Gyma</td>
+            <td>
+                <div>
+                    <!-- Link to view details and manage connections -->
+                    <a th:href="@{/gyms/{gymId}/manage(gymId=${gym.id})}" class="btn btn-primary d-inline-block">Upravljanje</a>
                 </div>
             </td>
         </tr>

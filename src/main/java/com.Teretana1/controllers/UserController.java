@@ -1,7 +1,9 @@
 package com.Teretana1.controllers;
 
 
+import com.Teretana1.models.Gym;
 import com.Teretana1.models.User;
+import com.Teretana1.repositories.GymRepository;
 import com.Teretana1.repositories.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +25,20 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    GymRepository gymRepository;
+
     @GetMapping("/users")
     @PreAuthorize("hasAuthority('ADMIN')")
     public String listUsers (Model model){
         List<User> users = userRepository.findAll();
         model.addAttribute("users", users);
+
+        List<Gym> gyms = gymRepository.findAll(); // Assuming you have a GymRepository
+        model.addAttribute("gyms", gyms);
+
         return "Users/index";
     }
-
     // U klasi UserController
 
     @GetMapping("/users/add")

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Upravljanje Gymom</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2 th:text="'Upravljanje Gymom: ' + ${gym.name}">Naziv Gyma</h2>
+    <p th:text="'Adresa: ' + ${gym.address}">Adresa Gyma</p>
+
+    <!-- Current Users/Coaches Connected to the Gym -->
+    <h3>Treneri i Korisnici Povezani sa Gymom</h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Ime</th>
+            <th>Prezime</th>
+            <th>Email</th>
+            <th>Uloga</th>
+            <th>Akcije</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${gym.users}">
+            <td th:text="${user.ime}">Ime</td>
+            <td th:text="${user.prezime}">Prezime</td>
+            <td th:text="${user.email}">Email</td>
+            <td th:text="${user.roles}">Uloga</td>
+            <td>
+                <form th:action="@{/gyms/{gymId}/removeUser(userId=${user.id}, gymId=${gym.id})}" method="post" class="d-inline">
+                    <button type="submit" class="btn btn-danger">Ukloni</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Form to Add New Users/Coaches to the Gym -->
+    <h3>Dodaj Trenera ili Korisnika u Gym</h3>
+    <form th:action="@{/gyms/{gymId}/addUser(gymId=${gym.id})}" method="post">
+        <div class="form-group">
+            <label for="userSelect">Odaberi Korisnika ili Trenera</label>
+            <select id="userSelect" name="userId" class="form-control" required>
+                <option th:each="user : ${availableUsers}" th:value="${user.id}" th:text="${user.ime} + ' ' + ${user.prezime} + ' (' + ${user.roles} + ')'">
+                    Korisnik ili Trener
+                </option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Dodaj u Gym</button>
+        <a href="/users" class="btn btn-secondary">Povratak</a>
+    </form>
+</div>
+</body>
+</html>
