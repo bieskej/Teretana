@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Assign Workout Plan</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Dodijeli Plan Treninga</h2>
+    <p th:text="'Dodijeljivanje plana treninga za: ' + ${member.ime} + ' ' + ${member.prezime}"></p>
+
+    <!-- Button to create a new workout plan -->
+    <a th:href="@{/trener/gym/{gymId}/createWorkoutPlan(gymId=${gymId})}" class="btn btn-secondary mb-3">Kreiraj Novi Plan Treninga</a>
+
+    <!-- Form to assign an existing workout plan -->
+    <form th:action="@{/trener/gym/{gymId}/assignWorkoutPlan(memberId=${member.id}, gymId=${gymId})}" method="post">
+        <div class="form-group">
+            <label for="workoutPlanSelect">Odaberite Plan Treninga</label>
+            <select id="workoutPlanSelect" name="workoutPlanId" class="form-control">
+                <option th:each="plan : ${availablePlans}" th:value="${plan.id}" th:text="${plan.name}">Plan</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Dodijeli Plan</button>
+    </form>
+</div>
+</body>
+</html>

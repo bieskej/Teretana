@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <title>Create Workout Plan</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script>
+    let exerciseIndex = 0; // Global index for exercises
+
+    function addExercise() {
+      exerciseIndex++; // Increment index for each new exercise
+
+      var exerciseTemplate = document.getElementById('exercise-template').cloneNode(true);
+      exerciseTemplate.style.display = '';
+
+      // Update the names of the cloned input fields to have unique indices
+      exerciseTemplate.querySelectorAll('input').forEach(function(input) {
+        input.name = input.name.replace('0', exerciseIndex);
+        input.required = true;  // Add 'required' to the visible fields
+      });
+
+      document.getElementById('exercises-container').appendChild(exerciseTemplate);
+    }
+  </script>
+</head>
+<body>
+<div class="container mt-5">
+  <h2>Create Workout Plan</h2>
+
+  <form th:action="@{/trener/gym/{gymId}/createWorkoutPlan(gymId=${gymId})}" th:method="post">
+    <div class="form-group">
+      <label for="planName">Plan Name</label>
+      <input type="text" id="planName" name="planName" class="form-control" required>
+    </div>
+
+    <!-- Hidden template for new exercises -->
+    <div id="exercise-template" style="display:none;">
+      <div class="form-group">
+        <label>Exercise Name</label>
+        <input type="text" name="exercises[0].name" class="form-control">
+      </div>
+      <div class="form-group">
+        <label>Sets</label>
+        <input type="number" name="exercises[0].sets" class="form-control">
+      </div>
+      <div class="form-group">
+        <label>Repetitions</label>
+        <input type="number" name="exercises[0].repetitions" class="form-control">
+      </div>
+      <hr>
+    </div>
+
+    <div id="exercises-container"></div>
+
+    <button type="button" class="btn btn-secondary" onclick="addExercise()">Add Exercise</button>
+    <button type="submit" class="btn btn-primary">Create Workout Plan</button>
+    <!-- Povratak Button to go back to the previous page -->
+    <a href="javascript:history.back()" class="btn btn-secondary ml-3">Povratak</a>
+  </form>
+</div>
+</body>
+</html>

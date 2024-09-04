@@ -9,6 +9,13 @@
 <div class="container mt-4">
     <h1>Dobrodošli, <span th:text="${user.ime}"></span>!</h1>
 
+    <!-- Logout Button -->
+    <div class="text-right mb-3">
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="btn btn-danger">Logout</button>
+        </form>
+    </div>
+
     <!-- Gym Information -->
     <div class="card mt-3">
         <div class="card-body">

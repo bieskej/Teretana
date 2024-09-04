@@ -18,9 +18,6 @@ public class Gym {
     @NotBlank(message = "Address is required")
     private String address;
 
-    @OneToMany(mappedBy = "gym", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<User> users = new HashSet<>();
-
     // Default constructor
     public Gym() {}
 
@@ -55,11 +52,4 @@ public class Gym {
         this.address = address;
     }
 
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
 }

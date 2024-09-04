@@ -28,6 +28,6 @@ public class KorisnikService {
     }
 
     public Gym getGymForUser(User user) {
-        return user.getGym();
+        return userRepository.getUsersGym(user.getId());
     }
 }

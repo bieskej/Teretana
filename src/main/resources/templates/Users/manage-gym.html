@@ -18,17 +18,37 @@
             <th>Prezime</th>
             <th>Email</th>
             <th>Uloga</th>
+            <th>Datum Početka</th>
+            <th>Datum Završetka</th>
+            <th>Aktivno</th>
             <th>Akcije</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="user : ${gym.users}">
-            <td th:text="${user.ime}">Ime</td>
-            <td th:text="${user.prezime}">Prezime</td>
-            <td th:text="${user.email}">Email</td>
-            <td th:text="${user.roles}">Uloga</td>
+        <tr th:each="membership : ${memberships}">
+            <td th:text="${membership.user.ime}">Ime</td>
+            <td th:text="${membership.user.prezime}">Prezime</td>
+            <td th:text="${membership.user.email}">Email</td>
+            <td th:text="${membership.user.roles}">Uloga</td>
+            <td th:text="${membership.startDate}">Datum Početka</td>
             <td>
-                <form th:action="@{/gyms/{gymId}/removeUser(userId=${user.id}, gymId=${gym.id})}" method="post" class="d-inline">
+                <form th:action="@{/gyms/{gymId}/updateMembership(gymId=${gym.id})}" method="post">
+                    <input type="hidden" name="membershipId" th:value="${membership.id}">
+                    <input type="date" name="endDate" class="form-control" th:value="${membership.endDate}">
+                </form>
+            </td>
+            <td>
+                <select name="isActive" class="form-control">
+                    <option th:value="true" th:text="'Aktivno'" th:selected="${membership.isActive}">Aktivno</option>
+                    <option th:value="false" th:text="'Neaktivno'" th:selected="${!membership.isActive}">Neaktivno</option>
+                </select>
+            </td>
+            <td>
+                <button type="submit" class="btn btn-primary">Ažuriraj</button>
+                </form> <!-- Ensure this form is properly closed here -->
+
+                <!-- Form to Remove User from Gym -->
+                <form th:action="@{/gyms/{gymId}/removeUser(userId=${membership.user.id}, gymId=${gym.id})}" method="post" class="d-inline">
                     <button type="submit" class="btn btn-danger">Ukloni</button>
                 </form>
             </td>
@@ -47,6 +67,28 @@
                 </option>
             </select>
         </div>
+
+        <div class="form-group">
+            <label for="startDate">Datum Početka</label>
+            <input type="date" id="startDate" name="startDate" class="form-control" required
+                   th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"
+                   th:min="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}">
+        </div>
+
+        <div class="form-group">
+            <label for="endDate">Datum Završetka</label>
+            <input type="date" id="endDate" name="endDate" class="form-control" required
+                   th:min="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}">
+        </div>
+
+        <div class="form-group">
+            <label for="isActive">Status Članstva</label>
+            <select id="isActive" name="isActive" class="form-control" required>
+                <option value="true">Aktivno</option>
+                <option value="false">Neaktivno</option>
+            </select>
+        </div>
+
         <button type="submit" class="btn btn-primary">Dodaj u Gym</button>
         <a href="/users" class="btn btn-secondary">Povratak</a>
     </form>

@@ -16,19 +16,21 @@ public class WorkoutPlan {
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "creator_id")
+    private User creator;
 
     @OneToMany(mappedBy = "workoutPlan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Exercise> exercises = new HashSet<>();
 
-    // Default constructor
     public WorkoutPlan() {}
 
-    // Parameterized constructor
-    public WorkoutPlan(String name, User user) {
+    public WorkoutPlan(String name, User creator) {
         this.name = name;
-        this.user = user;
+        this.creator = creator;
     }
 
     // Getters and Setters
@@ -54,6 +56,14 @@ public class WorkoutPlan {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
     }
 
     public Set<Exercise> getExercises() {

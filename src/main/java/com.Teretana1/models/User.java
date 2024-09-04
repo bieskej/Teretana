@@ -35,11 +35,6 @@ public class User {
     @Enumerated(EnumType.STRING)
     Set<Role> roles = new HashSet<>();
 
-    // Mapping to Gym
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "gym_id")
-    private Gym gym;
-
     // Mapping to WorkoutPlan
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<WorkoutPlan> workoutPlans = new HashSet<>();
@@ -117,14 +112,6 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
-    }
-
-    public Gym getGym() {
-        return gym;
-    }
-
-    public void setGym(Gym gym) {
-        this.gym = gym;
     }
 
     public Set<WorkoutPlan> getWorkoutPlans() {
