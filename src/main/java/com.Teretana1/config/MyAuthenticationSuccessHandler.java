@@ -14,7 +14,7 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        var authorities = authentication.getAuthorities();
+        /*var authorities = authentication.getAuthorities();
 
         for (var authority : authorities) {
             System.out.println("this is  " + authority.getAuthority());
@@ -29,5 +29,6 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
         } else {
             response.sendRedirect("/login");
         }
+        */
     }
 }

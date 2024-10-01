@@ -12,10 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,7 +27,7 @@ public class UserController {
 
     @GetMapping("/users")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public String listUsers (Model model){
+    public String listUsers(Model model) {
         List<User> users = userRepository.findAll();
         model.addAttribute("users", users);
 
@@ -41,6 +38,7 @@ public class UserController {
     }
     // U klasi UserController
 
+    // server side rendering sa thymeleafom
     @GetMapping("/users/add")
     @PreAuthorize("hasAuthority('ADMIN')")
     public String showAddUserForm(Model model) {
@@ -51,7 +49,7 @@ public class UserController {
     @PostMapping("/users/add")
     @PreAuthorize("hasAuthority('ADMIN')")
     public String addUser(@Valid User user, BindingResult result, Model model) {
-        if (result.hasErrors()){
+        if (result.hasErrors()) {
             model.addAttribute("user", user);
             return "Users/add";
         } else {
@@ -82,7 +80,7 @@ public class UserController {
         return "Users/edit";
     }
 
-    @PostMapping("/users/edit/{userId}")
+    @PatchMapping("/users/edit/{userId}")
     @PreAuthorize("hasAuthority('ADMIN')")
     public String updateUser(@PathVariable Long userId, @ModelAttribute User user, Model model) {
         // Provjerite postoji li korisnik s tim ID-om

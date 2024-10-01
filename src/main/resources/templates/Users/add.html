@@ -6,6 +6,7 @@
 </head>
 <body>
 <div class="container mt-5">
+    <a href="/users" class="btn btn-secondary">Povratak</a>
     <h2>Dodaj Novog Korisnika</h2>
     <form th:action="@{/users/add}" th:object="${user}" method="post">
         <div class="form-group">

@@ -1,5 +1,6 @@
 package com.Teretana1.repositories;
 import com.Teretana1.models.Gym;
+import com.Teretana1.models.Membership;
 import com.Teretana1.models.Role;
 import com.Teretana1.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -27,4 +28,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     SELECT m.gym FROM Membership m
     WHERE m.user.id = :userId
 """)
-    Gym getUsersGym(@Param("userId") Long userId);}
+    Gym getUsersGym(@Param("userId") Long userId);
+
+    @Query("SELECT m FROM Membership m WHERE m.user.id IN :userIds")
+    List<Membership> getMembershipsByUserIds(List<Long> userIds);
+}

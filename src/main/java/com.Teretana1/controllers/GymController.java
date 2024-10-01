@@ -54,6 +54,7 @@ public class GymController {
         List<Membership> memberships = membershipRepository.findByGymId(gymId);
         List<User> availableUsers = userRepository.findUsersNotInGymAndNotAdmin(gymId, Role.ADMIN);
 
+
         model.addAttribute("gym", gym);
         model.addAttribute("memberships", memberships);
         model.addAttribute("availableUsers", availableUsers);

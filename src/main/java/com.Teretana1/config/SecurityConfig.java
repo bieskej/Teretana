@@ -42,6 +42,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+         /*
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth-> auth.requestMatchers("/auth/register/**", "/auth/register").permitAll()
@@ -61,7 +62,7 @@ public class SecurityConfig {
         http.headers(headers -> headers
                 .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin
                 ));
-
+        */
         return http.build();
     }
 }
